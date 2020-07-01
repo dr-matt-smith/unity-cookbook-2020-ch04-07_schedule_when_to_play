@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="row" style="flex-direction: row; align-items: center; justify-content: center;">
-        <ui:Button text="Button" style="background-color: rgba(250, 255, 64, 255); width: 50%; height: 50%; font-size: 20px; flex-direction: column; align-items: center; max-height: 100px; min-height: 100px;" />
-        <ui:Button text="Button" style="background-color: rgb(250, 255, 64); width: 50%; height: 50%; font-size: 20px; flex-direction: column; align-items: center; min-height: 100px;" />
-    </ui:VisualElement>
-</ui:UXML>
