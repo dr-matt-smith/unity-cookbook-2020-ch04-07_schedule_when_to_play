@@ -4,7 +4,11 @@ using UnityEngine.UI;
 
 public class ScheduledSoundManager : MonoBehaviour 
 {
+    public Text textScheduledMessage;
     private AudioSource audioSource;
+    private bool activated = false;
+    private float secondsUntilPlay = 0;
+    private DateTime scheduledPlayTime;
 
     private void Awake()
     {
@@ -16,12 +20,31 @@ public class ScheduledSoundManager : MonoBehaviour
     /// </summary>
     public void PlayMusic(int hours, int minutes, int seconds)
     {
-        DateTime time1147 = DateTime.Today.Add(new TimeSpan(hours, minutes, seconds));
-        TimeSpan delayTimeSpan = time1147 - DateTime.Now;
-        float delayMilliseconds = delayTimeSpan.Seconds;
+        scheduledPlayTime = DateTime.Today.Add(new TimeSpan(hours, minutes, seconds));
+        UpdateSecondsUntilPlay();
+        audioSource.PlayDelayed(secondsUntilPlay);
+        activated = true;
+    }
 
-        print("delay milliseconds = " + delayMilliseconds);
+    private void Update()
+    {
+        // default message
+        String message = "played!";
 
-        audioSource.PlayDelayed(delayMilliseconds);
+        if(activated){
+            UpdateSecondsUntilPlay();
+            if(secondsUntilPlay > 0){
+                message = "scheduled to play in " + secondsUntilPlay + " seconds";
+            } else {
+                activated = false;
+            }
+            textScheduledMessage.text = message;
+        }
+    }
+
+    private void UpdateSecondsUntilPlay()
+    {
+        TimeSpan delayUntilPlay = scheduledPlayTime - DateTime.Now;
+        secondsUntilPlay = delayUntilPlay.Seconds;
     }
 }
